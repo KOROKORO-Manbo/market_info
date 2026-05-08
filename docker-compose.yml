@@ -8,7 +8,7 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    # ports:
+    # ports:    ← Docker内で起動中のDBとWebサーバーの通信となるので、へたにDocker外にポートをさらさないこと
     #   - "5432:5432"
 
   web:
