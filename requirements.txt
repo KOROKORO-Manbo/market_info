@@ -3,3 +3,9 @@ Django==5.2.13
 psycopg2-binary==2.9.12
 python-dotenv==1.2.2
 sqlparse==0.5.5
+# scraper dependencies
+requests==2.32.3
+pandas==2.2.3
+yfinance==0.2.54
+beautifulsoup4==4.13.4
+lxml==5.4.0
