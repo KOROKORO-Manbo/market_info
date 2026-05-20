@@ -147,7 +147,7 @@ def fetch_dji_close(target_date):
     }
 
 
-def _yf_close(ticker, target_date, retries=2, base_wait=10):
+def _yf_close(ticker, target_date, retries=3, base_wait=30):
     """
     Download daily close for ticker via Ticker.history(), with retry on rate limit.
     Uses Ticker API (different endpoint from yf.download) to reduce rate limit risk.
