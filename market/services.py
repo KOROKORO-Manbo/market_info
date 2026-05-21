@@ -197,6 +197,10 @@ def fetch_tanaka_gold_1400(target_date):
     r.raise_for_status()
     tree = lxml_html.fromstring(r.content)
 
+    # 更新時刻: h3/span
+    update_time_nodes = tree.xpath("/html/body/div[2]/div[2]/div/h3/span")
+    update_time = update_time_nodes[0].text_content().strip() if update_time_nodes else "店頭小売価格（税込）"
+
     # 店頭小売価格（税込）: tbody なしで tr[2]/td[2]
     _xpath_base = (
         "/html/body/div[2]/div[2]/div"
@@ -223,7 +227,7 @@ def fetch_tanaka_gold_1400(target_date):
         "source_url": TANAKA_URL,
         "value": price,
         "unit": "JPY/g",
-        "note": "店頭小売価格（税込）",
+        "note": update_time,
         "change_vs_prev_bd": change,
         "change_vs_prev_bd_pct": change_pct,
     }

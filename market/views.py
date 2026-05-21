@@ -90,13 +90,16 @@ def dashboard(request):
     report_date = latest["report_date"]
     snaps = {s.source_name: s for s in MarketSnapshot.objects.filter(report_date=report_date)}
 
+    tanaka_snap = snaps.get("Tanaka Gold 14:00")
+    tanaka_label = (tanaka_snap.note or "14:00 発表分") if tanaka_snap else "14:00 発表分"
+
     cards = [
         _card(snaps.get("ust_30y_yield"),    "UST 30Y",      "%",      decimals=2),
         _card(snaps.get("DJIA Close"),        "DJIA Close",   "pts",    decimals=0),
         _card(snaps.get("USDJPY 8:30"),       "USD/JPY 8:30", "JPY",    decimals=2),
         _card(snaps.get("Gold Settlement"),   "NY Gold",      "USD/oz", decimals=1),
-        _card(snaps.get("Tanaka Gold 14:00"), "Tanaka Gold",  "JPY/g",  decimals=0,
-              sub_label="14:00 発表分"),
+        _card(tanaka_snap,                    "Tanaka Gold",  "JPY/g",  decimals=0,
+              sub_label=tanaka_label),
     ]
 
     # Chart: use accumulated Gold Settlement data from DB (no external requests)
