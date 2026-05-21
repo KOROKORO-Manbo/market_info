@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from .models import MarketSnapshot
+from .refresh import refresh_all
 
 
 def _fmt_value(value, decimals):
@@ -72,6 +73,8 @@ def _build_chart_data(history, vw=1200, vh=500, pad_x=30, pad_y=40):
 
 @login_required
 def dashboard(request):
+    refresh_all()
+
     latest = MarketSnapshot.objects.order_by("-report_date").values("report_date").first()
 
     if latest is None:
